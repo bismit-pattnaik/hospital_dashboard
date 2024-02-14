@@ -1,0 +1,6 @@
+.DashboardViewPage{
+    background-color:#EFF2F7;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
