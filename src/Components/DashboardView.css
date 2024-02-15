@@ -12,12 +12,13 @@
 
 .SidebarContainer{
      width: 16%;
-     height: 86.5vh;
+     height: 87.5vh;
      background-color: #fff;
      padding: 12px 0px 12px 24px;
      display: flex;
      flex-direction: column;
      gap: 2px;
+     box-shadow: #1E749C29;
 }
 
 .ContentContainer{
@@ -62,21 +63,43 @@
     font-weight: 500;
 }
 
-/* Add this to your existing CSS */
 .MenuItems.active {
-    /* background-color: blue;  */
-    /* color: white;  */
-    background: linear-gradient(to right, #D5F1F8 , #F0F9FC )padding-box ,linear-gradient(to right, #3CADD4, #D5F1F8)border-box;
+    background: linear-gradient(to right, #D5F1F8, #F0F9FC) padding-box,
+                linear-gradient(to right, #3CADD4, #D5F1F8) border-box;
     display: flex;
     align-items: center;
     border: 1px solid transparent;
-    transition: background-color 0.5s ease; 
+    border-right: none;
+    transition: background-color 0.5s ease;
     border-radius: 4px 0px 0px 4px;
-  }
-  
-  .MenuItems.active span {
+    position: relative; /* Position relative for containing pseudo-element */
+}
+
+.MenuItems.active::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0; /* Adjust as needed */
+    transform: translateX(-50%); 
+    top: 50%;  
+    transform: translateY(-50%); 
+    width: 4px;
+    height: 23px;
+    border-radius: 0px 4px 4px 0px;
+    background-color: #2190B9; /* Color of the small box */
+    
+}
+
+.MenuItems.active span {
     color: #2190B9;
     font-weight: 600;
-    margin-left: 10px; 
-  }
-  
+    margin-left: 10px;
+    transition: margin-left 0.5s ease;
+}
+
+.MenuItems:hover span {
+    color: #2190B9;
+    font-weight: 600;
+    margin-left: 10px;
+    transition: margin-left 0.5s ease;
+}
