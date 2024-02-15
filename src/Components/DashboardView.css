@@ -61,3 +61,22 @@
     line-height: 20px;
     font-weight: 500;
 }
+
+/* Add this to your existing CSS */
+.MenuItems.active {
+    /* background-color: blue;  */
+    /* color: white;  */
+    background: linear-gradient(to right, #D5F1F8 , #F0F9FC )padding-box ,linear-gradient(to right, #3CADD4, #D5F1F8)border-box;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: background-color 0.5s ease; 
+    border-radius: 4px 0px 0px 4px;
+  }
+  
+  .MenuItems.active span {
+    color: #2190B9;
+    font-weight: 600;
+    margin-left: 10px; 
+  }
+  
