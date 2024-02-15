@@ -1,0 +1,53 @@
+.NavbarContainer{
+    display: flex;
+    background:#204259;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 45px;
+}
+
+.NavbarHeader{
+   display: flex;
+   gap: 22px;
+   align-items: center;
+}
+
+.NavbarTail{
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.HeaderNavbarTitle{
+     color: #F3F4F4;
+     font-size: 25px;
+     size: 20px;
+     font-weight: 600;
+     line-height: 25px;
+}
+
+.empName{
+    color: #EFFAFC;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.departName{
+    color: #EFFAFC ;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; 
+}
+
+/* .logoutIcon{
+    margin-right: 40px;
+} */
+
+.ImgBox{
+    width: 137px;
+    border-right: 2px solid;
+    border-color: #60686B;
+}

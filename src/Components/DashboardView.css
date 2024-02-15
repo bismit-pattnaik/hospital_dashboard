@@ -1,6 +1,63 @@
-.DashboardViewPage{
-    background-color:#EFF2F7;
+.DashboardMainViewPage{
+    background-color:#EFFAFC;
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.DashboardPageContainer{
+     display: flex;
+     flex-direction: row;
+}
+
+.SidebarContainer{
+     width: 16%;
+     height: 86.5vh;
+     background-color: #fff;
+     padding: 12px 0px 12px 24px;
+     display: flex;
+     flex-direction: column;
+     gap: 2px;
+}
+
+.ContentContainer{
+     width: 84%;
+}
+
+/* .Menuheader{
+    color: #1F5E7F;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    height: 30px;
+    border-bottom: 1px solid;
+} */
+
+.Menuheader {
+    color: #1F5E7F;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    /* height: 30px; */
+    padding-bottom: 10px;
+}
+
+.Menuheader span {
+    border-bottom: 2px solid;
+    padding-bottom: 5px;
+    border-color: #D0D6D7;
+}
+
+.MenuItems{
+    /* background: antiquewhite; */
+    height: 24px;
+    padding: 6px;
+     
+}
+
+.MenuItems span {
+    font-size: 17px;
+    color:#768083;
+    line-height: 20px;
+    font-weight: 500;
 }
