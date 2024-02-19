@@ -1,0 +1,103 @@
+.MainContentBox{
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    /* background-color: bisque; */
+    gap: 12px;
+}
+
+
+.TitleLine{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    /* border: 1px solid; */
+}
+
+.HeaderTitleName{
+    font-size: 26px;
+    color: #262B2C;
+    font-weight: 600;
+    line-height: 21px;
+}
+
+.ContentBox{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    height: 80vh;
+    gap: 12px;   
+    overflow-y: auto; 
+}
+
+.ContentDetail{
+    display: flex;
+    margin: 12px 12px 0px 12px;
+}
+
+.ipd-tabs{
+    display: flex;
+    text-align: center;
+    border-bottom: 1px solid #E5E9E9;
+}
+.dept-tab{
+    height: 30px;
+    width: 149px; 
+    padding: 5px 16px 5px 16px;
+    gap: 8px;
+    color: #535F75;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    line-height: 21.78px;
+}
+.doctor-tab{
+    height: 30px;
+    width: 149px; 
+    padding: 5px 16px 5px 16px;
+    gap: 8px;
+    color: #535F75;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.dept-tab.active {
+    background-color: #D5F1F8;
+    color: #2190B9;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 3px solid #2190B9;
+  }
+  
+  .doctor-tab.active {
+    background-color: #D5F1F8;
+    color: #2190B9;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 3px solid #2190B9;
+  }
+.deptinput-field{
+    padding: 12px;
+    width: 220px;
+    display: flex;
+}
+.input-field{
+    height:  32px;
+    width: 220px;
+    border: 1px solid #D1D4D6;
+    border-radius: 5px;
+    gap: 8px;
+    padding: 4px 10px 4px 10px;
+}
+.TableContainer{
+    display: flex;
+    margin: 12px;
+    /* border: 1px solid; */
+}

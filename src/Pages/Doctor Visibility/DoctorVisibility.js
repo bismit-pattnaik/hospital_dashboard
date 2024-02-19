@@ -19,10 +19,10 @@ function DoctorVisibility() {
   useEffect(() => {
     axios
       .get(`http://localhost:9191/adhocapi/dashboard/fetchOpIpList?date=16-02-2024`,{
-        headers: { Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMDY1MDkiLCJleHAiOjE3MDgwNTkxNTYsImlhdCI6MTcwODAzMDM1Nn0.zmXjaQehdnSfJNB23-TYF40_2a6bpFqbnUmWvzFz3lf4N6ElocEnP0WWqiaWRD2EIPwgbcNQemMi9A_n8GbXpw`}
+        // headers: { Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcwODExMTIyNSwiaWF0IjoxNzA4MDgyNDI1fQ.mXeUv0kEt_UqzM1NILPst1O28rZsuXAjG9IE5vlcXJvgydQX-u46XtZlIVSgSg8SsvomAdl9bqbi-c1gagzl_w`}
       })
       .then((response) => {
-        setData(response.data);
+        setData(response.data.data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -32,7 +32,7 @@ function DoctorVisibility() {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
+ console.log(data)
   return (
     <div className='MainContentBox'>
       <div className='TitleLine'>
@@ -65,8 +65,8 @@ function DoctorVisibility() {
                 <TableCell>IP consultation</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {data.map((row, index) => (
+            <TableBody sx={{ overflowY: "auto" }}>
+              {data?.map((row, index) => (
                 <TableRow key={index}>
                   <TableCell>{row.doctorName}</TableCell>
                   <TableCell>{row.departmentName}</TableCell>

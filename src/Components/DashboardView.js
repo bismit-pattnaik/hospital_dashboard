@@ -5,6 +5,8 @@ import DoctorVisibility from '../Pages/Doctor Visibility/DoctorVisibility';
 import BedVisibility from '../Pages/Bed Visibility/BedVisibility';
 import OTQueue from '../Pages/OT Queue Display/OTQueue';
 import OPDisplay from '../Pages/OPD Queue Display/OPDisplay';
+import IpdFootfall from '../Pages/IPD Footfall/IpdFootfall';
+import OpdFootfall from '../Pages/OPD Footfall/OpdFootfall';
 
 function DashboardView() {
 
@@ -34,15 +36,27 @@ function DashboardView() {
                 <span>Bed Visibility</span>
               </div> */}
 
-              <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
+              {/* <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('OT Queue Display')} >
                 <span>OT Queue Display</span>
+              </div> */}
+
+              <div className={`MenuItems ${activeMenuItem === 'IPD Footfall' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('IPD Footfall')} >
+                <span>IPD Footfall</span>
               </div>
 
-              <div className={`MenuItems ${activeMenuItem === 'OPD Queue Display' ? 'active' : ''}`}
+              <div className={`MenuItems ${activeMenuItem === 'OPD Footfall' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('OPD Footfall')} >
+                <span>OPD Footfall</span>
+              </div>
+
+              {/* <div className={`MenuItems ${activeMenuItem === 'OPD Queue Display' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('OPD Queue Display')} >
                 <span>OPD Queue Display</span>
-              </div>
+              </div> */}
+
+
 
         </div>
 
@@ -53,6 +67,8 @@ function DashboardView() {
           {activeMenuItem === 'Bed Visibility' && <BedVisibility />}
           {activeMenuItem === 'OT Queue Display' && <OTQueue/>}
           {activeMenuItem === 'OPD Queue Display' && <OPDisplay/> }
+          {activeMenuItem === 'IPD Footfall' && <IpdFootfall/> }
+          {activeMenuItem === 'OPD Footfall' && <OpdFootfall/> }
         </div>
       </div>
     </div>
