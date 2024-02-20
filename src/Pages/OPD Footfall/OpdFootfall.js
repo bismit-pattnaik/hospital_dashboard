@@ -1,7 +1,11 @@
 import React from 'react'
 import './OpdFootfall.css'
+import axios from 'axios'
+
+
 
 function OpdFootfall() {
+
   return (
     <div className='MainContentBox'>
         <div className='TitleLine'>
