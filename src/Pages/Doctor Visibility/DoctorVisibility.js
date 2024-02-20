@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./DoctorVisibility.css";
 import searchIcon from "../../Assests/Images/searchIcon.svg";
-import { Table, TableHead, TableBody, TableRow, TableCell, CircularProgress } from "@mui/material";
+import { Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 import axios from "axios";
 import { HashLoader } from "react-spinners";
 
@@ -12,21 +12,23 @@ function DoctorVisibility() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  
+  const [selectedDate, setSelectedDate] = useState(new Date ()); // Set initial date to today's date
 
-  const getTodayDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
+  function formatDate(dateTimeString) {
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+    const formattedDateTime = new Date(dateTimeString).toLocaleDateString('en-GB', options);
+    return formattedDateTime;
+  }
   
 
   useEffect(() => {
     setLoading(true); // Set loading to true when starting data fetching
     axios
-      .get(`http://localhost:9191/adhocapi/dashboard/fetchOpIpList?date=16-02-2024`,{
+      .get(`http://localhost:9191/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`,{
         headers: { Authorization: `Bearer ${tokenNo}`}
       })
       .then((response) => {
@@ -38,7 +40,7 @@ function DoctorVisibility() {
         console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false if there's an error
       });
-  },[]);
+  },[selectedDate]);
 
 
   const handleSearchChange = (e) => {
@@ -80,7 +82,8 @@ function DoctorVisibility() {
             <input
               type="date"
               style={{ color: "black", outline: "none", border: "none" }}
-              defaultValue={getTodayDate()}
+              defaultValue={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
             />
           </div>
         </div>

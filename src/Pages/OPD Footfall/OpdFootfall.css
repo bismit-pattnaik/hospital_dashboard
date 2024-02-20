@@ -35,3 +35,104 @@
     display: flex;
     margin: 12px 12px 0px 12px;
 }
+
+
+.tabs{
+    display: flex;
+    text-align: center;
+    border-bottom: 1px solid #E5E9E9;
+}
+.dept-tab{
+    height: 30px;
+    width: 149px; 
+    padding: 5px 16px 5px 16px;
+    gap: 8px;
+    color: #535F75;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    line-height: 21.78px;
+}
+.doctor-tab{
+    height: 30px;
+    width: 149px; 
+    padding: 5px 16px 5px 16px;
+    gap: 8px;
+    color: #535F75;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.dept-tab.active {
+    background-color: #D5F1F8;
+    color: #2190B9;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 3px solid #2190B9;
+  }
+  
+.doctor-tab.active {
+    background-color: #D5F1F8;
+    color: #2190B9;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 3px solid #2190B9;
+}
+
+
+.TableContainer{
+    display: flex;
+    margin: 12px;
+    /* border: 1px solid; */
+}
+
+.tab-content{
+    margin: 0px 12px;
+}
+
+.MainTable{
+    border: 1px solid #ECEFF5;;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 4px 4px 16px 0 #0f4f9f0f;
+}
+
+.MainTable th, .MainTable td {
+    border-right: 1px solid #ECEFF5; /* Add vertical lines */
+    text-align: center;
+}
+
+.MainTable th:first-child, .MainTable td:first-child {
+    text-align: left; /* Align the first column items to the left */
+    font-weight: 500;
+}
+
+  .MainTable th {
+    color: var(--Grey2, #535F75);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background-color: #ECEFF5;
+    padding: 10px;
+    border-bottom: 1px solid #ECEFF5;
+    text-align: center;
+}
+.MainTable td {
+    padding: 6px 10px;
+    color: var(--Grey1, #132740);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.MainTable tbody tr:not(:last-child) {
+    border-bottom: 1px solid #ECEFF5;
+}
