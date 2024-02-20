@@ -39,6 +39,7 @@
 .tabs{
     display: flex;
     text-align: center;
+    width: 100%;
     border-bottom: 1px solid #E5E9E9;
 }
 .dept-tab{
