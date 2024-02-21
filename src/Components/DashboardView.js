@@ -51,10 +51,10 @@ function DashboardView() {
                 <span>OPD Footfall</span>
               </div>
 
-              {/* <div className={`MenuItems ${activeMenuItem === 'OPD Queue Display' ? 'active' : ''}`}
-                onClick={() => handleMenuItemClick('OPD Queue Display')} >
-                <span>OPD Queue Display</span>
-              </div> */}
+               <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('OT Queue Display')} >
+                <span>OT Queue Display</span>
+              </div> 
 
 
 

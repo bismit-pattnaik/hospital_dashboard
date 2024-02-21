@@ -12,7 +12,7 @@ function DoctorVisibility() {
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date ()); // Set initial date to today's date
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Set initial date to today's date
 
   function formatDate(dateTimeString) {
     const options = {
@@ -24,7 +24,6 @@ function DoctorVisibility() {
     return formattedDateTime;
   }
   
-
   useEffect(() => {
     setLoading(true); // Set loading to true when starting data fetching
     axios
@@ -82,8 +81,8 @@ function DoctorVisibility() {
             <input
               type="date"
               style={{ color: "black", outline: "none", border: "none" }}
-              defaultValue={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
+              value={selectedDate.toISOString().split('T')[0]} // Set the value to the selectedDate
+              onChange={(e) => setSelectedDate(new Date(e.target.value))} // Convert the input value to a Date object and update selectedDate
             />
           </div>
         </div>
