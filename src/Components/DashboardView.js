@@ -31,11 +31,6 @@ function DashboardView() {
                 <span>Doctor Visibility</span>
               </div>
 
-              {/* <div className={`MenuItems ${activeMenuItem === 'Bed Visibility' ? 'active' : ''}`}
-                onClick={() => handleMenuItemClick('Bed Visibility')}>
-                <span>Bed Visibility</span>
-              </div> */}
-
               {/* <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('OT Queue Display')} >
                 <span>OT Queue Display</span>
@@ -49,6 +44,11 @@ function DashboardView() {
               <div className={`MenuItems ${activeMenuItem === 'OPD Footfall' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('OPD Footfall')} >
                 <span>OPD Footfall</span>
+              </div>
+
+              <div className={`MenuItems ${activeMenuItem === 'Bed Visibility' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('Bed Visibility')}>
+                <span>Bed Visibility</span>
               </div>
 
                <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}

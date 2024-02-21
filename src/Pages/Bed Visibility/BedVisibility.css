@@ -1,0 +1,104 @@
+.MainContentBox{
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    /* background-color: bisque; */
+    gap: 12px;
+}
+.TitleLine{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    /* border: 1px solid; */
+}
+.HeaderTitleName{
+    font-size: 26px;
+    color: #262B2C;
+    font-weight: 600;
+    line-height: 21px;
+}
+.ContentBox{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    height: 80vh;
+    gap: 12px;
+    overflow-y: auto;
+}
+.ContentDetail{
+    display: flex;
+    margin: 12px 12px 0px 12px;
+}
+
+.bedtabs{
+    display: flex;
+    gap: 20px;
+    text-align: center;
+    width: 100%;
+}
+.icu-tab{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 78px;
+    width: 149px; 
+    padding: 16px;
+    gap: 8px;
+    color: #2190B9;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+    line-height: 21.78px;
+    border: 1px solid #D5F1F8;
+    border-radius: 8px;
+    box-shadow: 4px 4px 12px 0px #3CADD429;
+
+}
+.ward-tab{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 78px;
+    width: 149px; 
+    padding: 16px;
+    gap: 8px;
+    color: #2190B9;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+    line-height: 21.78px;
+    border: 1px solid #D5F1F8;
+    border-radius: 8px;
+    box-shadow: 4px 4px 12px 0px #3CADD429;
+
+}
+.icu-tab.active {
+    background-color: #2190B9;
+    color: #fff;
+  }
+  
+.ward-tab.active {
+    background-color: #2190B9;
+    color: #fff;
+}
+
+.Tabsubheadbox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.tabsubheadline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tabsubheadline span {
+    font-weight: 600;
+}
