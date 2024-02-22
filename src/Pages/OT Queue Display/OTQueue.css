@@ -46,7 +46,37 @@
 .patientstatus{
     width: 63px;
     height: 15px;
-    padding: 2px 4px 2px 4px;
+    padding: 1px;
     border-radius: 5px;
     background-color: #5ED3A2;
+}
+.ot-seach{
+    display: flex;
+    align-items: center;
+}
+.ot-inputfield{
+    padding: 12px 12px 0px 12px;
+}
+.calender-conatiner{
+    padding-left: 0px;
+    padding: 12px 12px 0px 0px;
+}
+.department-select{
+    width: 220px;
+    height: 32px;
+    padding: 4px 10px 4px 10px;
+    border: 2px solid var(--Grey4, #DFE7F7);
+    border-radius: 5px;
+}
+.CalenterView{
+    width: 120px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    /* border: 1px solid var(--Oslo-Gray-300, #D1D4D6); */
+    border: 2px solid var(--Grey4, #DFE7F7);
+    
+}
+.table-data{
+    font-size: 12px;
 }
