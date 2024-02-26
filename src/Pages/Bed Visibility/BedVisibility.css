@@ -102,3 +102,66 @@
 .tabsubheadline span {
     font-weight: 600;
 }
+
+.BedContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ContainerTitle{
+    color: #44494B;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+.BlockContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.BlockBox{
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+   border-right: 1px solid #949FA1;
+   width: 24%;
+   padding-left: 10px;
+   margin-bottom: 30px;
+}
+
+.BlockName{
+    color: #262B2C;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+}
+
+.BlockCount{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+
+.BedVisibilityStatus{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.BedNo{
+    font-size: 12px;
+}
+
+.BedImg{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
