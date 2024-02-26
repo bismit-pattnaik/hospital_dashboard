@@ -63,7 +63,7 @@
 }
 .department-select{
     width: 220px;
-    height: 32px;
+    height: 39px;
     padding: 4px 10px 4px 10px;
     border: 2px solid var(--Grey4, #DFE7F7);
     border-radius: 5px;
@@ -80,3 +80,13 @@
 .table-data{
     font-size: 12px;
 }
+.robot{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+/* .robot-text{
+    margin: -45px 0 0 0;
+} */

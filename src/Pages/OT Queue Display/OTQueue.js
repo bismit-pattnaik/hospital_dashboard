@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './OTQueue.css';
 import bedIcon from '../../Assests/Images/bedIcon.svg';
-import otIcon from '../../Assests/Images/otIcon.svg'
+import otIcon from '../../Assests/Images/otIcon.svg';
+import robot from '../../Assests/Images/robot.svg';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import axios from 'axios';
 
@@ -11,7 +12,7 @@ function OTQueue() {
   const [selectedOt, setSelectedOt] = useState('');
   const [otPatients, setOtPatients] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-   // Get current date in "yyyy-mm-dd" format
+  const [showTable, setShowTable] = useState(false);
 
   useEffect(() => {
     // Fetch OT rooms data
@@ -39,10 +40,13 @@ function OTQueue() {
         )
         .then((response) => {
           setOtPatients(response.data.data);
+          setShowTable(true); // Show the table when OT and date are selected
         })
         .catch((error) => {
           console.error('Error fetching OT patients data:', error);
         });
+    } else {
+      setShowTable(false); // Hide the table when OT is not selected
     }
   }, [selectedOt, tokenNo]);
 
@@ -70,59 +74,70 @@ function OTQueue() {
             </select>
           </div>
           <div className='calender-conatiner'>
-          <div className="CalenterView">
-            <input
-              type="date"
-              style={{ color: "black", outline: "none", border: "none" }}
-              value={selectedDate.toISOString().split('T')[0]} // Set the value to the selectedDate
-              onChange={(e) => setSelectedDate(new Date(e.target.value))} // Convert the input value to a Date object and update selectedDate
-            />
-          </div>
+            <div className="CalenterView">
+              <input
+                type="date"
+                style={{ color: "black", outline: "none", border: "none" }}
+                value={selectedDate.toISOString().split('T')[0]} // Set the value to the selectedDate
+                onChange={(e) => setSelectedDate(new Date(e.target.value))} // Convert the input value to a Date object and update selectedDate
+              />
+            </div>
           </div>
         </div>
 
-        <div className="TableContainer">
-          <Table>
-            <TableHead sx={{ backgroundColor: '#E5E9E9' }}>
-              <TableRow>
-                <TableCell style={{ width: '260px' }}>Patient Details</TableCell>
-                <TableCell style={{ width: '200px' }}>Visit & Bed Details</TableCell>
-                <TableCell style={{ width: '200px' }}>Surgery Details</TableCell>
-                <TableCell style={{ width: '240px' }}>OT Team</TableCell>
-                <TableCell>Surgery Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody sx={{ overflowY: 'auto' }}>
-              {otPatients.map((patient, index) => (   
-                <TableRow key={index}>
-                  <TableCell style={{fontSize:'12px'}} className='table-data'>
-                    <span className="patientname">{patient.patientName}</span>&nbsp;
-                    <span className="patientgender">{patient.gender}</span>&nbsp;
-                    <span>({patient.age})</span>
-                    <br />
-                    {patient.mrno}&nbsp;&nbsp;
-                  </TableCell>
-                  <TableCell style={{fontSize:'12px'}} className='table-data'>
-                    {patient.patientVisitId}
-                    <br />
-                    <img src={bedIcon} alt="bedIcon" />&nbsp;{patient.bedDetails}&nbsp;{patient.patientLocation}
-                  </TableCell>
-                  <TableCell style={{fontSize:'12px'}} className='table-data'>
-                    {patient.surgeryName}
-                    <br />
-                    <img src={otIcon} alt="bedIcon" />&nbsp;{patient.otDetails}
-                  </TableCell>
-                  <TableCell style={{fontSize:'12px'}} className='table-data'>
-                    Chief Surgeon: {patient.surgeon}
-                    <br />
-                    Anesthetist: {patient.AnesthetistName}
-                  </TableCell>
-                  <TableCell style={{fontSize:'12px'}} className='table-data'>{patient.surgeryStatus}</TableCell>
+        {/* Conditional rendering of the robot image and text */}
+        {!showTable && (
+          <div className='robot'>
+            <img src={robot} alt="bedIcon" className='robot-img' /><br/> 
+            <p style={{ margin: '-45px 0 0 0' }} className='.robot-text'>Select OT to view details</p>
+          </div>
+        )}
+
+        {/* Conditional rendering of the table */}
+        {showTable && (
+          <div className="TableContainer">
+            <Table>
+              <TableHead sx={{ backgroundColor: '#E5E9E9' }}>
+                <TableRow>
+                  <TableCell style={{ width: '260px' }}>Patient Details</TableCell>
+                  <TableCell style={{ width: '200px' }}>Visit & Bed Details</TableCell>
+                  <TableCell style={{ width: '200px' }}>Surgery Details</TableCell>
+                  <TableCell style={{ width: '240px' }}>OT Team</TableCell>
+                  <TableCell>Surgery Status</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHead>
+              <TableBody sx={{ overflowY: 'auto' }}>
+                {otPatients.map((patient, index) => (   
+                  <TableRow key={index}>
+                    <TableCell style={{fontSize:'12px'}} className='table-data'>
+                      <span className="patientname">{patient.patientName}</span>&nbsp;
+                      <span className="patientgender">{patient.gender}</span>&nbsp;
+                      <span>({patient.dob})</span>
+                      <br />
+                      {patient.mrno}&nbsp;&nbsp;
+                    </TableCell>
+                    <TableCell style={{fontSize:'12px'}} className='table-data'>
+                      {patient.patientVisitId}
+                      <br />
+                      <img src={bedIcon} alt="bedIcon" />&nbsp;{patient.bedDetails}&nbsp;{patient.patientLocation}
+                    </TableCell>
+                    <TableCell style={{fontSize:'12px'}} className='table-data'>
+                      {patient.surgeryName}
+                      <br />
+                      <img src={otIcon} alt="bedIcon" />&nbsp;{patient.otDetails}
+                    </TableCell>
+                    <TableCell style={{fontSize:'12px'}} className='table-data'>
+                      Chief Surgeon: {patient.surgeon}
+                      <br />
+                      Anesthetist: {patient.AnesthetistName}
+                    </TableCell>
+                    <TableCell style={{fontSize:'12px'}} className='table-data'>{patient.surgeryStatus}<br/>{patient.financeClearance}<br/>{patient.pacStatus}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
       </div>
     </div>
   );

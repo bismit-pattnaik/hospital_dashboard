@@ -56,6 +56,11 @@ function DashboardView() {
                 <span>OT Queue Display</span>
               </div> 
 
+              <div className={`MenuItems ${activeMenuItem === 'OPD Queue Display' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('OPD Queue Display')} >
+                <span>OPD Queue Display</span>
+              </div> 
+
 
 
         </div>
