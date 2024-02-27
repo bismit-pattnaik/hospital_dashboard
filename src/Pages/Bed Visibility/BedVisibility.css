@@ -85,6 +85,9 @@
     color: #fff;
 }
 
+.tab-contents{
+    margin: 0px 12px 12px;
+}
 .Tabsubheadbox{
     display: flex;
     flex-direction: column;
@@ -118,32 +121,41 @@
 
 .BlockContainer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     flex-wrap: wrap;
+    gap: 20px;
+}
+
+.BlockImgAndCount{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
 }
 
 .BlockBox{
    display: flex;
    flex-direction: column;
-   gap: 8px;
-   border-right: 1px solid #949FA1;
-   width: 24%;
-   padding-left: 10px;
-   margin-bottom: 30px;
+   gap: 14px;
+   padding: 12px;
+   /* border-right: 1px solid #949FA1; */
+   width: 98%;
+   /* padding-left: 10px; */
+   background-color: aliceblue;
+   border-radius: 15px;
 }
 
 .BlockName{
     color: #262B2C;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 17px;
 }
 
 .BlockCount{
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    gap: 50px;
 
 }
 
@@ -152,7 +164,7 @@
     flex-direction: row;
     gap: 10px;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
 }
 
 .BedNo{
@@ -164,4 +176,31 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 64px;
+}
+
+.ContainerImg{
+    display: flex;
+    flex-direction: row;
+    /* background-color: antiquewhite; */
+    gap: 30px;
+}
+
+.ColorCodeTag{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.ColorBox{
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.ColorBoxTitle{
+    font-size: 15px;
+    font-weight: 500;
 }
