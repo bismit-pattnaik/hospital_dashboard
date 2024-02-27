@@ -1,28 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './BedVisibility.css';
 import ICUbeds from './ICUbeds';
 import Wardbeds from './Wardbeds';
+import axios from 'axios';
 
 function BedVisibility() {
+
+  const tokenNo = process.env.REACT_APP_TOKEN_NO;
   const [activeTab, setActiveTab] = useState("icu");
   const [icuBedData, setIcuBedData] = useState({ total: 0, available: 0 });
   const [wardBedData, setWardBedData] = useState({ total: 0, available: 0 });
+
+  const [bedDataicu, setBedDataicu] = useState({});
+  const [bedDataward, setBedDataward] = useState({});
+
+  useEffect(() => {
+    const fetchICUBedData = async () => {                    // Fetch ICU bed data
+      try {
+        const response = await axios.get('http://localhost:9191/adhocapi/dashboard/bedavailability?type=ICU',{
+          headers: { Authorization: `Bearer ${tokenNo}` }
+        });
+        const icuData = response.data.data;
+        setBedDataicu(icuData);
+        const { total, available } = calculateBedCounts(icuData);
+        setIcuBedData({ total, available });
+      } catch (error) {
+        console.error('Error fetching ICU bed data:', error);
+      }
+    };
+
+    const fetchWardBedData = async () => {                         // Fetch Ward bed data
+      try {
+        const response = await axios.get('http://localhost:9191/adhocapi/dashboard/bedavailability?type=',{
+          headers: { Authorization: `Bearer ${tokenNo}` }
+        });
+        const wardData = response.data.data;
+        setBedDataward(wardData);
+        const { total, available } = calculateBedCounts(wardData);
+        setWardBedData({ total, available });
+      } catch (error) {
+        console.error('Error fetching Ward bed data:', error);
+      }
+    };
+
+    fetchICUBedData();
+    fetchWardBedData();
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  const handleICUBedData = (data) => {
-    setIcuBedData(data);
+  const calculateBedCounts = (data) => {
+    let total = 0;
+    let available = 0;
+    Object.values(data).forEach(beds => {
+      total += beds.length;
+      available += beds.filter(bed => bed.bedStatus === 'Available').length;
+    });
+    return { total, available };
   };
-
-  const handleWardBedData = (data) => {
-    setWardBedData(data);
-  };
-
-
-// console.log(icuBedData.total)
-
 
   return (
     <div className='MainContentBox'>
@@ -68,12 +105,12 @@ function BedVisibility() {
         {/* Content for doctor wise and department wise can be added here based on activeTab state */}
         {activeTab === "icu" && (
           <div className="tab-contents">
-            <ICUbeds onBedDataChange={handleICUBedData} />
+            <ICUbeds bedData={bedDataicu}/>
           </div>
         )}
         {activeTab === "ward" && (
           <div className="tab-contents">
-            <Wardbeds onBedDataChange={handleWardBedData} />
+            <Wardbeds bedData={bedDataward}/>
           </div>
         )}
       </div>

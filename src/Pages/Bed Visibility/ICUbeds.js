@@ -1,37 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+// import axios from 'axios';
 import './BedVisibility.css';
-import statusImg from '../../Assests/Images/statusImg.svg';
+// import statusImg from '../../Assests/Images/statusImg.svg';
 import blockedBed from '../../Assests/Images/blockedbed.svg';
 import occupiedBed from '../../Assests/Images/occupiedbed.svg';
 import availableBed from '../../Assests/Images/availablebed.svg';
 import unavailableBed from '../../Assests/Images/unavailableBed.svg';
 import markedForDischarge from '../../Assests/Images/markedForDischargeBed.svg';
 
-function ICUbeds({ onBedDataChange }) {                                   //  Receive onBedDataChange as a prop
-  const tokenNo = process.env.REACT_APP_TOKEN_NO;
-  const [bedData, setBedData] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:9191/adhocapi/dashboard/bedavailability?type=ICU', {
-          headers: { Authorization: `Bearer ${tokenNo}` }
-        });
-        setBedData(response.data.data);
-        
-        // Calculate total and available beds and pass the data to the parent component
-        const total = calculateTotalBeds(response.data.data); // Pass the fetched data to calculate functions
-        const available = calculateAvailableBeds(response.data.data); // Pass the fetched data to calculate functions
-        onBedDataChange({ total, available });
-
-      } catch (error) {
-        console.error('Error fetching bed data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+function ICUbeds({ bedData }) {                   // Receive bedData as a prop            
+  
 
   const renderBedStatus = (status) => {
     switch (status) {
@@ -48,22 +26,6 @@ function ICUbeds({ onBedDataChange }) {                                   //  Re
       default:
         return null;
     }
-  };
-
-  const calculateTotalBeds = () => {
-    let total = 0;
-    Object.values(bedData).forEach(beds => {
-      total += beds.length;
-    });
-    return total;
-  };
-
-  const calculateAvailableBeds = () => {
-    let available = 0;
-    Object.values(bedData).forEach(beds => {
-      available += beds.filter(bed => bed.bedStatus === 'Available').length;
-    });
-    return available;
   };
 
   const calculateBedStatusCount = (status) => {
