@@ -7,6 +7,7 @@ import occupiedBed from '../../Assests/Images/occupiedbed.svg';
 import availableBed from '../../Assests/Images/availablebed.svg';
 import unavailableBed from '../../Assests/Images/unavailableBed.svg';
 import markedForDischarge from '../../Assests/Images/markedForDischargeBed.svg';
+import { BeatLoader } from 'react-spinners';
 
 function ICUbeds({ bedData }) {                   // Receive bedData as a prop            
   
@@ -36,6 +37,10 @@ function ICUbeds({ bedData }) {                   // Receive bedData as a prop
     return count;
   };
   
+    // Render loader if bedData is not yet fetched
+    if (!bedData || Object.keys(bedData).length === 0) {
+        return <div className='Loader'><BeatLoader color="#36d7b7" /></div>;
+      }
 
 
   return (

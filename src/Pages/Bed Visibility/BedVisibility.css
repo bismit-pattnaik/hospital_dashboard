@@ -204,3 +204,10 @@
     font-size: 15px;
     font-weight: 500;
 }
+
+.Loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
