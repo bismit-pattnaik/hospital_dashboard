@@ -4,6 +4,13 @@ import searchIcon from "../../Assests/Images/searchIcon.svg";
 import { Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 import axios from "axios";
 import { HashLoader } from "react-spinners";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import downloadPdf from '../../Assests/Images/downloadpdf.svg'
+import downloadExcel from '../../Assests/Images/downloadExcel.svg'
+
 
 function DoctorVisibility() {
 
@@ -63,10 +70,54 @@ function DoctorVisibility() {
     setSearchQuery(`${doctorName}, ${departmentName}`);
   };
 
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF();
+    const tableColumn = ["Doctor Name", "Department", "OP consultation", "IP consultation"];
+    const tableRows = [];
+  
+    // Prepare table rows
+    filteredData.forEach((row) => {
+      const rowData = [
+        row.doctorName,
+        row.departmentName,
+        row.opCount,
+        row.ipCount
+      ];
+      tableRows.push(rowData);
+    });
+  
+    // Add data to the table
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+    });
+  
+    // Save the PDF
+    doc.save("doctor_visibility.pdf");
+  };
+  
+
+  const handleDownloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(filteredData);
+    const workbook = {
+      Sheets: { 'data': worksheet },
+      SheetNames: ['data']
+    };
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const fileName = "doctor_visibility.xlsx";
+    saveAs(new Blob([excelBuffer], { type: 'application/octet-stream' }), fileName);
+  };
+
   return (
     <div className="MainContentBox">
       <div className="TitleLine">
         <div className="HeaderTitleName">Doctor Visibility</div>
+
+      <div className="DownloadSection">
+        <div onClick={handleDownloadExcel}><img src={downloadExcel} alt="Download Excel" /></div>
+        <div onClick={handleDownloadPdf} ><img src={downloadPdf} alt="Download Pdf" /></div>
+      </div>
+
       </div>
 
       <div className="ContentBox">

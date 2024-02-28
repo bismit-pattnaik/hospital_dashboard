@@ -7,6 +7,7 @@ import OTQueue from '../Pages/OT Queue Display/OTQueue';
 import OPDisplay from '../Pages/OPD Queue Display/OPDisplay';
 import IpdFootfall from '../Pages/IPD Footfall/IpdFootfall';
 import OpdFootfall from '../Pages/OPD Footfall/OpdFootfall';
+import Inventory from '../Pages/Inventory Visibility/Inventory';
 
 function DashboardView() {
 
@@ -31,11 +32,6 @@ function DashboardView() {
                 <span>Doctor Visibility</span>
               </div>
 
-              {/* <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
-                onClick={() => handleMenuItemClick('OT Queue Display')} >
-                <span>OT Queue Display</span>
-              </div> */}
-
               <div className={`MenuItems ${activeMenuItem === 'IPD Footfall' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('IPD Footfall')} >
                 <span>IPD Footfall</span>
@@ -49,6 +45,11 @@ function DashboardView() {
               <div className={`MenuItems ${activeMenuItem === 'Bed Visibility' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('Bed Visibility')}>
                 <span>Bed Visibility</span>
+              </div>
+
+              <div className={`MenuItems ${activeMenuItem === 'Inventory Visibility' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('Inventory Visibility')}>
+                <span>Inventory Visibility</span>
               </div>
 
                <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
@@ -74,6 +75,7 @@ function DashboardView() {
           {activeMenuItem === 'OPD Queue Display' && <OPDisplay/> }
           {activeMenuItem === 'IPD Footfall' && <IpdFootfall/> }
           {activeMenuItem === 'OPD Footfall' && <OpdFootfall/> }
+          {activeMenuItem === 'Inventory Visibility' && <Inventory/> }
         </div>
       </div>
     </div>

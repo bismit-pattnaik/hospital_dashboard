@@ -53,6 +53,7 @@
     /* background: antiquewhite; */
     height: 24px;
     padding: 6px;
+    cursor: pointer;
      
 }
 
@@ -61,6 +62,7 @@
     color:#768083;
     line-height: 20px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .MenuItems.active {
@@ -73,6 +75,7 @@
     transition: background-color 0.5s ease;
     border-radius: 4px 0px 0px 4px;
     position: relative; /* Position relative for containing pseudo-element */
+    cursor: pointer;
 }
 
 .MenuItems.active::before {
@@ -87,7 +90,7 @@
     height: 23px;
     border-radius: 0px 4px 4px 0px;
     background-color: #2190B9; /* Color of the small box */
-    
+    cursor: pointer;
 }
 
 .MenuItems.active span {
@@ -95,6 +98,7 @@
     font-weight: 600;
     margin-left: 10px;
     transition: margin-left 0.5s ease;
+    cursor: pointer;
 }
 
 .MenuItems:hover span {
@@ -102,4 +106,5 @@
     font-weight: 600;
     margin-left: 10px;
     transition: margin-left 0.5s ease;
+    cursor: pointer;
 }
