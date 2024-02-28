@@ -30,10 +30,18 @@
 }
 
 .opd-seach{
-    padding: 12px;
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  justify-content: space-between;
 }
 .department-select{
     margin-right: 12px;
+}
+.dateTime{
+  display: flex;
+  align-items: center;
+  font-weight: 700;
 }
 .robot{
     display: flex;
@@ -45,16 +53,7 @@
 .robot-text{
     margin-top: -45px;
 }
-/*  
-.doctor-details{
-    padding-left: 12px;
-    background-color: #EFFAFC;
-    width: 300px;
-    width: 200px;  
-    height: 200px; 
-    background-color: #EFFAFC;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-} */
+ 
 .doctor-patient-deatils{
     display: flex;
 }
@@ -88,19 +87,20 @@
   }
   
   .left-inner {
+    margin-right: 10px;
     flex: 1;
   }
   
   .right-inner {
-    flex: 1;
+    flex: 2;
   }
   .doctor-name{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     /* text-align: center; */
   }
   .specialist{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
   }
   
@@ -122,12 +122,13 @@
     flex-direction: column;
     justify-content: center;
     flex: 1;
-    background-color: #f1f1f1;;  
+    background-color: #3CADD4;;  
     margin-right: 10px;   
     /* text-align: center; */
     /* align-items: center; */
 }
 .patient-header{
+    color: white;
     padding: 12px;
     font-size: 20px;
     font-weight: 600;
@@ -135,6 +136,7 @@
     border-bottom: 1px solid #D0D6D7;
 }
 .patient-queue-no {
+  color: white;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -146,8 +148,11 @@
   }
   
   .queue-number {
+    color: white;
     text-align: center;  
-    flex: 1;  
+    flex: 1; 
+    font-weight: 700;
+    font-size: 24px; 
   }
   .patient-left-inner {
     display: flex;
@@ -156,6 +161,7 @@
   }
   
   .patient-info {
+    color: white;
     margin-bottom: 12px; /* Adjust the space between each element */
   }
   .patient-right-inner {
