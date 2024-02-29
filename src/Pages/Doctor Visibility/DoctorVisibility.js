@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./DoctorVisibility.css";
 import searchIcon from "../../Assests/Images/searchIcon.svg";
-import { Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from "axios";
-import { HashLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
@@ -140,15 +140,16 @@ function DoctorVisibility() {
 
         <div className="TableContainer">
           <div className="loader-container" >
-            <HashLoader
+            <BeatLoader
               color={"#2190B9"}
               loading={loading}
-              size={50}
+              size={15}
               aria-label="Loading Spinner"
               data-testid="loader"
             />
           </div>
           {!loading && (
+          <TableContainer component={Paper}>
             <Table>
               <TableHead sx={{ backgroundColor: "#E5E9E9" }}>
                 <TableRow>
@@ -171,6 +172,7 @@ function DoctorVisibility() {
                 ))}
               </TableBody>
             </Table>
+            </TableContainer>  
           )}
         </div>
       </div>

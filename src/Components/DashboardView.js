@@ -8,6 +8,7 @@ import OPDisplay from '../Pages/OPD Queue Display/OPDisplay';
 import IpdFootfall from '../Pages/IPD Footfall/IpdFootfall';
 import OpdFootfall from '../Pages/OPD Footfall/OpdFootfall';
 import Inventory from '../Pages/Inventory Visibility/Inventory';
+import NursingQueue from '../Pages/Nursing Queue Display/NursingQueue';
 
 function DashboardView() {
 
@@ -52,6 +53,11 @@ function DashboardView() {
                 <span>Inventory Visibility</span>
               </div>
 
+              <div className={`MenuItems ${activeMenuItem === 'Nursing Queue Display' ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick('Nursing Queue Display')} >
+                <span>Nursing Queue Display</span>
+              </div> 
+
                <div className={`MenuItems ${activeMenuItem === 'OT Queue Display' ? 'active' : ''}`}
                 onClick={() => handleMenuItemClick('OT Queue Display')} >
                 <span>OT Queue Display</span>
@@ -76,6 +82,7 @@ function DashboardView() {
           {activeMenuItem === 'IPD Footfall' && <IpdFootfall/> }
           {activeMenuItem === 'OPD Footfall' && <OpdFootfall/> }
           {activeMenuItem === 'Inventory Visibility' && <Inventory/> }
+          {activeMenuItem === 'Nursing Queue Display' && <NursingQueue/> }
         </div>
       </div>
     </div>

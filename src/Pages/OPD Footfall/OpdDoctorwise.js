@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BeatLoader } from 'react-spinners';
 import './OpdFootfall.css'
 
 function OpdDoctorwise() {
-  const tokenNo=process.env.REACT_APP_TOKEN_NO; 
-    
+  const tokenNo = process.env.REACT_APP_TOKEN_NO; 
+
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);
 
@@ -22,9 +24,11 @@ function OpdDoctorwise() {
           return { ...doct, 'Grand Total': grandTotal };
         });
         setData(updatedData);
+        setLoading(false); // Data fetching is complete
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setLoading(false); // Stop loader in case of error
       });
   }, []);
 
@@ -44,20 +48,26 @@ function OpdDoctorwise() {
 
   return (
     <div>
-      <table className='MainTable'>
-        <thead>
-          <tr>
-            <th>Doctor Name</th>
-            {dates.map(date => (
-              <th key={date}>{date}</th>
-            ))}
-            <th>Grand Total</th>
-          </tr>
-        </thead>
-        <tbody>{renderRows()}</tbody>
-      </table>
+      {loading ? (
+        <div className="loader-container">
+          <BeatLoader color="#2190B9" />
+        </div>
+      ) : (
+        <table className='MainTable'>
+          <thead>
+            <tr>
+              <th>Doctor Name</th>
+              {dates.map(date => (
+                <th key={date}>{date}</th>
+              ))}
+              <th>Grand Total</th>
+            </tr>
+          </thead>
+          <tbody>{renderRows()}</tbody>
+        </table>
+      )}
     </div>
   );
 }
 
-export default OpdDoctorwise
+export default OpdDoctorwise;

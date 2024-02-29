@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './IpdFootfall.css';
+import { BeatLoader } from 'react-spinners';
 
 function IpdDepartmentWise() {
 
   const tokenNo=process.env.REACT_APP_TOKEN_NO; 
     
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);
 
@@ -23,9 +25,11 @@ function IpdDepartmentWise() {
           return { ...dept, 'Grand Total': grandTotal };
         });
         setData(updatedData);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setLoading(false);
       });
   }, []);
 
@@ -45,6 +49,11 @@ function IpdDepartmentWise() {
 
   return (
     <div>
+      {loading ? (
+        <div className="loader-container">
+          <BeatLoader color="#2190B9" />
+        </div>
+      ) : (
       <table className='MainTable'>
         <thead>
           <tr>
@@ -57,6 +66,7 @@ function IpdDepartmentWise() {
         </thead>
         <tbody>{renderRows()}</tbody>
       </table>
+      )}
     </div>
   );
 }
