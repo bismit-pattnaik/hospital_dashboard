@@ -30,10 +30,10 @@ function OTQueue() {
 
   useEffect(() => {
     // Fetch OT patients data based on selected OT room
-    if (selectedOt) {
+    if (selectedOt && selectedDate) {
       axios
         .get(
-          `http://localhost:9191/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=23-02-2024`,
+          `http://localhost:9191/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=${formatDate(selectedDate)}`,
           {
             headers: { Authorization: `Bearer ${tokenNo}` },
           }
@@ -46,12 +46,24 @@ function OTQueue() {
           console.error('Error fetching OT patients data:', error);
         });
     } else {
-      setShowTable(false); // Hide the table when OT is not selected
+      setShowTable(false); // Hide the table when either OT or date is not selected
     }
-  }, [selectedOt, tokenNo]);
+  }, [selectedOt, selectedDate, tokenNo]);
 
   const handleSearchChange = (e) => {
     setSelectedOt(e.target.value);
+  };
+
+  const handleDateChange = (e) => {
+    setSelectedDate(new Date(e.target.value));
+  };
+
+  // Function to format the date as dd-MM-yyyy
+  const formatDate = (date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   };
 
   return (
@@ -79,7 +91,7 @@ function OTQueue() {
                 type="date"
                 style={{ color: "black", outline: "none", border: "none" }}
                 value={selectedDate.toISOString().split('T')[0]} // Set the value to the selectedDate
-                onChange={(e) => setSelectedDate(new Date(e.target.value))} // Convert the input value to a Date object and update selectedDate
+                onChange={handleDateChange} // Update selectedDate
               />
             </div>
           </div>
@@ -89,7 +101,7 @@ function OTQueue() {
         {!showTable && (
           <div className='robot'>
             <img src={robot} alt="bedIcon" className='robot-img' /><br/> 
-            <p style={{ margin: '-45px 0 0 0' }} className='.robot-text'>Select OT to view details</p>
+            <p style={{ margin: '-45px 0 0 0' }} className='.robot-text'>Select OT and date to view details</p>
           </div>
         )}
 
@@ -124,8 +136,9 @@ function OTQueue() {
                     <TableCell style={{fontSize:'12px'}} className='table-data'>
                       {patient.surgeryName}
                       <br />
-                      <img src={otIcon} alt="bedIcon" />&nbsp;{patient.otDetails}
+                      {/* <img src={otIcon} alt="bedIcon" />&nbsp;{patient.otDetails} */}
                     </TableCell>
+                   
                     <TableCell style={{fontSize:'12px'}} className='table-data'>
                       Chief Surgeon: {patient.surgeon}
                       <br />

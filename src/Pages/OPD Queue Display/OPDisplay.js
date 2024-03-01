@@ -62,6 +62,14 @@ function OPDisplay() {
   }, []);
 
   useEffect(() => {
+    setPatientDetails([]); // Reset patientDetails when department changes
+  }, [selectedDepartment]);
+
+  useEffect(() => {
+    setPatientDetails([]); // Reset patientDetails when doctor changes
+  }, [selectedDoctor]);
+
+  useEffect(() => {
     if (selectedDoctor) {
       axios
         .get(
@@ -71,7 +79,10 @@ function OPDisplay() {
           }
         )
         .then((response) => {
-          setPatientDetails(response.data.opMapList);
+          // Sort the response data based on queue number in descending order
+          const sortedPatientDetails = response.data.opMapList.sort((a, b) => a.queueNo - b.queueNo);
+          // Set the sorted patient details
+          setPatientDetails(sortedPatientDetails);
         })
         .catch((error) =>
           console.error("Error fetching patient details:", error)
@@ -145,7 +156,7 @@ function OPDisplay() {
                   <div className="patient-header">Patient Call</div>
                   <div className="patient-queue-no">
                     <div className="q-label">Q No.</div>
-                    <div className="queue-number">{patientDetails.length}</div>
+                    <div className="queue-number">4</div>
                   </div>
                   <div style={{ display: 'flex', gap: '100px' }}>
                     <div className="patient-left-inner">
@@ -154,15 +165,13 @@ function OPDisplay() {
                       <div className="patient-info">PHRN No.</div>
                       <div className="patient-info">Reporting Time</div>
                     </div>
-                    <div className="patient-right-inner">
-                      {patientDetails.map((patient, index) => (
-                        <div key={index}>
-                          <div className="patient-info">{patient.patientName}</div>
-                          <div className="patient-info">{patient.mobileNo}</div>
-                          <div className="patient-info">{patient.phrnNo}</div>
-                          <div className="patient-info">{patient.reportingTime}</div>
-                        </div>
-                      ))}
+                    <div className="patient-right-inner"> 
+                        <div>
+                          <div className="patient-info">Abhilipsa Sahoo</div>
+                          <div className="patient-info"> 9999999999</div>
+                          <div className="patient-info">KIMS0000001</div>
+                          <div className="patient-info">10:30 AM</div>
+                        </div> 
                     </div>
                   </div>
                 </div>
@@ -174,17 +183,19 @@ function OPDisplay() {
                   <TableRow>
                     <TableCell>Q No.</TableCell>
                     <TableCell>Patient Name</TableCell>
-                    <TableCell>MR No.</TableCell>
-                    <TableCell>Encounter Date Time</TableCell>
+                    <TableCell>MRNO No.</TableCell>
+                    <TableCell>Mobile No</TableCell>
+                    <TableCell>Approximate Waiting Time</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody sx={{ overflowY: "auto" }}>
-                  {patientDetails.map((patient, index) => (
+                  {patientDetails && patientDetails.map((patient, index) => (
                     <TableRow key={index}>
                       <TableCell>{patient.queueNo}</TableCell>
                       <TableCell>{patient.patientName}</TableCell>
                       <TableCell>{patient.mrno}</TableCell>
-                      <TableCell>{patient.encounterDateTime}</TableCell>
+                      <TableCell>{patient.mobileNo}</TableCell>
+                      <TableCell>20mins</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
