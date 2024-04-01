@@ -8,7 +8,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 function OpdDepartmentWise() {
 
   const tokenNo=process.env.REACT_APP_TOKEN_NO; 
-    
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);
@@ -16,7 +16,7 @@ function OpdDepartmentWise() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:9191/adhocapi/dashboard/footfall/department?type=OP',{
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/department?type=OP`,{
         headers: { Authorization: `Bearer ${tokenNo}`}
       })
       .then(response => {

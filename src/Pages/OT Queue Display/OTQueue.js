@@ -8,6 +8,7 @@ import axios from 'axios';
 
 function OTQueue() {
   const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [otRooms, setOtRooms] = useState([]);
   const [selectedOt, setSelectedOt] = useState('');
   const [otPatients, setOtPatients] = useState([]);
@@ -17,7 +18,7 @@ function OTQueue() {
   useEffect(() => {
     // Fetch OT rooms data
     axios
-      .get(`http://localhost:9191/adhocapi/dashboard/fetchOtList?siteId=2468`, {
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOtList?siteId=2468`, {
         headers: { Authorization: `Bearer ${tokenNo}` },
       })
       .then((response) => {
@@ -33,7 +34,7 @@ function OTQueue() {
     if (selectedOt && selectedDate) {
       axios
         .get(
-          `http://localhost:9191/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=${formatDate(selectedDate)}`,
+          `${DASHBOARD_URL}/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=${formatDate(selectedDate)}`,
           {
             headers: { Authorization: `Bearer ${tokenNo}` },
           }

@@ -8,7 +8,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 
 function OpdDoctorwise() {
   const tokenNo = process.env.REACT_APP_TOKEN_NO; 
-
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);
@@ -16,7 +16,7 @@ function OpdDoctorwise() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:9191/adhocapi/dashboard/footfall/doctor?type=OP',{
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/doctor?type=OP`,{
         headers: { Authorization: `Bearer ${tokenNo}`}
       })
       .then(response => {

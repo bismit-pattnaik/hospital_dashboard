@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import './NursingQueue.css';
+import robot from '../../Assests/Images/robot.svg';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
 function NursingQueue() {
     const tokenNo = process.env.REACT_APP_TOKEN_NO;
+    const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [serviceCenters, setServiceCenters] = useState([]);
     const [selectedWard, setSelectedWard] = useState('');
     const [patientsData, setPatientsData] = useState([]);
+    const [showTable, setShowTable] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:9191/adhocapi/dashboard/serviceCenters?siteId=2468', {
+        axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/serviceCenters?siteId=2468`, {
             headers: { Authorization: `Bearer ${tokenNo}` }
         })
         .then(response => {
@@ -25,7 +28,7 @@ function NursingQueue() {
 
     useEffect(() => {
         if (selectedWard) {
-            axios.get(`http://localhost:9191/adhocapi/dashboard/nqdPatientList?siteId=2468&serviceCenterId=${selectedWard.serviceCenterId}`, {
+            axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/nqdPatientList?siteId=2468&serviceCenterId=${selectedWard.serviceCenterId}`, {
                 headers: { Authorization: `Bearer ${tokenNo}` }
             })
             .then(response => {
@@ -40,6 +43,7 @@ function NursingQueue() {
     const handleSelectChange = (e) => {
         const selectedServiceCenter = serviceCenters.find(center => center.serviceCenterName === e.target.value);
         setSelectedWard(selectedServiceCenter);
+        setShowTable(true);
     };
 
     return (
@@ -70,7 +74,14 @@ function NursingQueue() {
                         />
                     </div>
                 </div>
-
+                {/* Conditional rendering of the robot image and text */}
+                    {!showTable && (
+                    <div className='robot'>
+                        <img src={robot} alt="bedIcon" className='robot-img' /><br/> 
+                        <p style={{ margin: '-45px 0 0 0' }} className='.robot-text'>Select Ward to view details</p>
+                    </div>
+                    )}
+                {showTable && (
                 <div className='TableContainer'>
                     <TableContainer component={Paper}>
                         <Table >
@@ -109,6 +120,7 @@ function NursingQueue() {
                         </Table>
                     </TableContainer>
                 </div>
+                )}
             </div>
         </div>
     );
