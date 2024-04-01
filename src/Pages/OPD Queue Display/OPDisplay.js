@@ -8,6 +8,7 @@ import avtar from "../../Assests/Images/avtar.png";
 
 function OPDisplay() {
   const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [doctors, setDoctors] = useState([]);
@@ -19,7 +20,7 @@ function OPDisplay() {
     // Fetch department data from the API
     axios
       .get(
-        `http://localhost:9191/adhocapi/department/clinicalDepartments?siteId=2468`,
+        `${DASHBOARD_URL}/adhocapi/department/clinicalDepartments?siteId=2468`,
         {
           headers: { Authorization: `Bearer ${tokenNo}` },
         }
@@ -39,7 +40,7 @@ function OPDisplay() {
     if (selectedDepartment) {
       axios
         .get(
-          `http://localhost:9191/adhocapi/employee/doctorDetails?siteId=2468&departmentName=${selectedDepartment}`,
+          `${DASHBOARD_URL}/adhocapi/employee/doctorDetails?siteId=2468&departmentName=${selectedDepartment}`,
           {
             headers: { Authorization: `Bearer ${tokenNo}` },
           }
@@ -73,7 +74,7 @@ function OPDisplay() {
     if (selectedDoctor) {
       axios
         .get(
-          `http://localhost:9191/adhocapi/doctorDashboard/outPatientDetails?siteId=2468&empNo=${selectedDoctor}`,
+          `${DASHBOARD_URL}/adhocapi/doctorDashboard/outPatientDetails?siteId=2468&empNo=${selectedDoctor}`,
           {
             headers: { Authorization: `Bearer ${tokenNo}` },
           }

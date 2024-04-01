@@ -7,7 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 
 function IpdDoctorWise() {
   const tokenNo=process.env.REACT_APP_TOKEN_NO; 
-    
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -15,7 +15,7 @@ function IpdDoctorWise() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:9191/adhocapi/dashboard/footfall/doctor?type=IP',{
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/doctor?type=IP`,{
         headers: { Authorization: `Bearer ${tokenNo}`}
       })
       .then(response => {

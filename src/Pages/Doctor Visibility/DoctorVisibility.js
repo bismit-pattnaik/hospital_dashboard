@@ -15,6 +15,7 @@ import downloadExcel from '../../Assests/Images/downloadExcel.svg'
 function DoctorVisibility() {
 
   const tokenNo=process.env.REACT_APP_TOKEN_NO;
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +35,7 @@ function DoctorVisibility() {
   useEffect(() => {
     setLoading(true); // Set loading to true when starting data fetching
     axios
-      .get(`http://localhost:9191/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`,{
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`,{
         headers: { Authorization: `Bearer ${tokenNo}`}
       })
       .then((response) => {

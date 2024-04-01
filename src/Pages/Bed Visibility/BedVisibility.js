@@ -7,6 +7,7 @@ import axios from 'axios';
 function BedVisibility() {
 
   const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [activeTab, setActiveTab] = useState("icu");
   const [icuBedData, setIcuBedData] = useState({ total: 0, available: 0 });
   const [wardBedData, setWardBedData] = useState({ total: 0, available: 0 });
@@ -17,7 +18,7 @@ function BedVisibility() {
   useEffect(() => {
     const fetchICUBedData = async () => {                    // Fetch ICU bed data
       try {
-        const response = await axios.get('http://localhost:9191/adhocapi/dashboard/bedavailability?type=ICU',{
+        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=ICU`,{
           headers: { Authorization: `Bearer ${tokenNo}` }
         });
         const icuData = response.data.data;
@@ -31,7 +32,7 @@ function BedVisibility() {
 
     const fetchWardBedData = async () => {                         // Fetch Ward bed data
       try {
-        const response = await axios.get('http://localhost:9191/adhocapi/dashboard/bedavailability?type=',{
+        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=`,{
           headers: { Authorization: `Bearer ${tokenNo}` }
         });
         const wardData = response.data.data;
