@@ -7,7 +7,8 @@ import robot from "../../Assests/Images/robot.svg";
 import avtar from "../../Assests/Images/avtar.png";
 
 function OPDisplay() {
-  const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  // const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  const tokenNo = localStorage.getItem('tokenNo');
   const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");

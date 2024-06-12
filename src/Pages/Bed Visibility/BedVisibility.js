@@ -6,7 +6,8 @@ import axios from 'axios';
 
 function BedVisibility() {
 
-  const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  // const tokenNo = process.env.REACT_APP_TOKEN_NO;
+  const tokenNo = localStorage.getItem('tokenNo');
   const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [activeTab, setActiveTab] = useState("icu");
   const [icuBedData, setIcuBedData] = useState({ total: 0, available: 0 });

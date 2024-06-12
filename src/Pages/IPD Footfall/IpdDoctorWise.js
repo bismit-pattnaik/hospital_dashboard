@@ -6,7 +6,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 function IpdDoctorWise() {
-  const tokenNo=process.env.REACT_APP_TOKEN_NO; 
+  // const tokenNo=process.env.REACT_APP_TOKEN_NO; 
+  const tokenNo = localStorage.getItem('tokenNo');
   const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [data, setData] = useState([]);
   const [dates, setDates] = useState([]);

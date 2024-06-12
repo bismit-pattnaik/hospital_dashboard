@@ -14,7 +14,8 @@ import downloadExcel from '../../Assests/Images/downloadExcel.svg'
 
 function DoctorVisibility() {
 
-  const tokenNo=process.env.REACT_APP_TOKEN_NO;
+  // const tokenNo=process.env.REACT_APP_TOKEN_NO;
+  const tokenNo = localStorage.getItem('tokenNo');  // Retrieve token from localStorage
   const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Set initial loading state to true
