@@ -21,9 +21,11 @@ function OTQueue() {
     // Fetch OT rooms data
     setLoading(true); // Set loading to true when starting data fetching
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOtList?siteId=2468`, {
-        headers: { Authorization: `Bearer ${tokenNo}` },
-      })
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOtList?siteId=2468`
+      //   , {
+      //   headers: { Authorization: `Bearer ${tokenNo}` },
+      // }
+    )
       .then((response) => {
         setOtRooms(response.data.data);
         setLoading(false); // Set loading to false after data fetching is complete
@@ -40,10 +42,11 @@ function OTQueue() {
       setLoading(true); // Set loading to true when starting patient data fetching
       axios
         .get(
-          `${DASHBOARD_URL}/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=${formatDate(selectedDate)}`,
-          {
-            headers: { Authorization: `Bearer ${tokenNo}` },
-          }
+          `${DASHBOARD_URL}/adhocapi/dashboard/fetchOtPatientList?serviceCenterId=${selectedOt}&date=${formatDate(selectedDate)}`
+          // ,
+          // {
+          //   headers: { Authorization: `Bearer ${tokenNo}` },
+          // }
         )
         .then((response) => {
           setOtPatients(response.data.data);

@@ -21,10 +21,11 @@ function OPDisplay() {
     // Fetch department data from the API
     axios
       .get(
-        `${DASHBOARD_URL}/adhocapi/department/clinicalDepartments?siteId=2468`,
-        {
-          headers: { Authorization: `Bearer ${tokenNo}` },
-        }
+        `${DASHBOARD_URL}/adhocapi/department/clinicalDepartments?siteId=2468`
+        // ,
+        // {
+        //   headers: { Authorization: `Bearer ${tokenNo}` },
+        // }
       )
       .then((response) => {
         const departmentNames = response.data.data.map(
@@ -41,10 +42,11 @@ function OPDisplay() {
     if (selectedDepartment) {
       axios
         .get(
-          `${DASHBOARD_URL}/adhocapi/employee/doctorDetails?siteId=2468&departmentName=${selectedDepartment}`,
-          {
-            headers: { Authorization: `Bearer ${tokenNo}` },
-          }
+          `${DASHBOARD_URL}/adhocapi/employee/doctorDetails?siteId=2468&departmentName=${selectedDepartment}`
+          // ,
+          // {
+          //   headers: { Authorization: `Bearer ${tokenNo}` },
+          // }
         )
         .then((response) => {
           const doctorData = response.data.data;
@@ -75,10 +77,11 @@ function OPDisplay() {
     if (selectedDoctor) {
       axios
         .get(
-          `${DASHBOARD_URL}/adhocapi/doctorDashboard/outPatientDetails?siteId=2468&empNo=${selectedDoctor}`,
-          {
-            headers: { Authorization: `Bearer ${tokenNo}` },
-          }
+          `${DASHBOARD_URL}/adhocapi/doctorDashboard/outPatientDetails?siteId=2468&empNo=${selectedDoctor}`
+          // ,
+          // {
+          //   headers: { Authorization: `Bearer ${tokenNo}` },
+          // }
         )
         .then((response) => {
           // Sort the response data based on queue number in descending order
