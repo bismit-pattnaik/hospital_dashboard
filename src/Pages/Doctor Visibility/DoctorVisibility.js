@@ -36,9 +36,9 @@ function DoctorVisibility() {
   useEffect(() => {
     setLoading(true); // Set loading to true when starting data fetching
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`,{
-        headers: { Authorization: `Bearer ${tokenNo}`}
-      })
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`
+        // ,{ headers: { Authorization: `Bearer ${tokenNo}`}}
+      )
       .then((response) => {
         setData(response.data.data);
         setLoading(false); // Set loading to false after data fetching is complete

@@ -19,9 +19,11 @@ function BedVisibility() {
   useEffect(() => {
     const fetchICUBedData = async () => {                    // Fetch ICU bed data
       try {
-        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=ICU`,{
-          headers: { Authorization: `Bearer ${tokenNo}` }
-        });
+        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=ICU`
+        //   ,{
+        //   headers: { Authorization: `Bearer ${tokenNo}` }
+        // }
+      );
         const icuData = response.data.data;
         setBedDataicu(icuData);
         const { total, available } = calculateBedCounts(icuData);
@@ -33,9 +35,9 @@ function BedVisibility() {
 
     const fetchWardBedData = async () => {                         // Fetch Ward bed data
       try {
-        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=`,{
-          headers: { Authorization: `Bearer ${tokenNo}` }
-        });
+        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=`
+          // ,{ headers: { Authorization: `Bearer ${tokenNo}` }}
+      );
         const wardData = response.data.data;
         setBedDataward(wardData);
         const { total, available } = calculateBedCounts(wardData);

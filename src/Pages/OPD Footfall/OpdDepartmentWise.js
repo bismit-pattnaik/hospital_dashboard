@@ -17,9 +17,11 @@ function OpdDepartmentWise() {
 
   useEffect(() => {
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/department?type=OP`,{
-        headers: { Authorization: `Bearer ${tokenNo}`}
-      })
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/department?type=OP`
+      //   ,{
+      //   headers: { Authorization: `Bearer ${tokenNo}`}
+      // }
+    )
       .then(response => {
         const responseData = response.data.data;
         const totalDates = Object.keys(responseData[0]).filter(key => key !== 'deptId' && key !== 'deptName');

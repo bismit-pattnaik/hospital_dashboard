@@ -17,9 +17,9 @@ function NursingQueue() {
 
     useEffect(() => {
         setLoading(true); // Set loading to true when starting data fetching
-        axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/serviceCenters?siteId=2468`, {
-            headers: { Authorization: `Bearer ${tokenNo}` }
-        })
+        axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/serviceCenters?siteId=2468`
+            // , {headers: { Authorization: `Bearer ${tokenNo}` }}
+        )
         .then(response => {
             setServiceCenters(response.data.data);
             setLoading(false); // Set loading to false after data fetching is complete
@@ -33,9 +33,9 @@ function NursingQueue() {
     useEffect(() => {
         if (selectedWard) {
             setLoading(true); // Set loading to true when starting patient data fetching
-            axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/nqdPatientList?siteId=2468&serviceCenterId=${selectedWard.serviceCenterId}`, {
-                headers: { Authorization: `Bearer ${tokenNo}` }
-            })
+            axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/nqdPatientList?siteId=2468&serviceCenterId=${selectedWard.serviceCenterId}`
+                // , { headers: { Authorization: `Bearer ${tokenNo}` }}
+            )
             .then(response => {
                 setPatientsData(response.data.data);
                 setLoading(false); // Set loading to false after data fetching is complete
