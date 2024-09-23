@@ -22,6 +22,8 @@ function DoctorVisibility() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date()); // Set initial date to today's date
+  const [hospitalMasterList, setHospitalMasterList] = useState([]);
+  const [selectedHospitalId, setSelectedHospitalId] = useState("");
 
   function formatDate(dateTimeString) {
     const options = {
@@ -32,11 +34,23 @@ function DoctorVisibility() {
     const formattedDateTime = new Date(dateTimeString).toLocaleDateString('en-GB', options);
     return formattedDateTime;
   }
+
+   // Fetch hospital list for the dropdown
+   useEffect(() => {
+    axios
+      .get(`${DASHBOARD_URL}/adhocapi/branch/master`)
+      .then((response) => {
+        setHospitalMasterList(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching hospital list:", error);
+      });
+  }, [DASHBOARD_URL]);
   
   useEffect(() => {
-    setLoading(true); // Set loading to true when starting data fetching
+    setLoading(true); 
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}`
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/fetchOpIpList?date=${formatDate(selectedDate)}&siteId=${selectedHospitalId}`
         // ,{ headers: { Authorization: `Bearer ${tokenNo}`}}
       )
       .then((response) => {
@@ -48,8 +62,11 @@ function DoctorVisibility() {
         console.error("Error fetching data:", error);
         setLoading(false); // Set loading to false if there's an error
       });
-  },[selectedDate]);
+  },[selectedDate, selectedHospitalId, DASHBOARD_URL]);
 
+  const handleHospitalChange = (e) => {
+    setSelectedHospitalId(e.target.value);  // Set the selected hospitalId or "" for "All"
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -113,7 +130,19 @@ function DoctorVisibility() {
   return (
     <div className="MainContentBox">
       <div className="TitleLine">
+        <div className="TitleFilter">
         <div className="HeaderTitleName">Doctor Visibility</div>
+        <div className="">
+           <select className="selectBarBox" onChange={handleHospitalChange}>
+                <option value="">All Hospitals</option>
+                {hospitalMasterList.map((hospital) => (
+                  <option key={hospital.siteId} value={hospital.siteId}>
+                    {hospital.hospitalName}
+                  </option>
+                ))}
+              </select>       
+        </div>
+        </div>
 
       <div className="DownloadSection">
         <div onClick={handleDownloadExcel}><img src={downloadExcel} alt="Download Excel" /></div>
