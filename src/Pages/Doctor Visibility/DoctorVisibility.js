@@ -10,6 +10,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import downloadPdf from '../../Assests/Images/downloadpdf.svg'
 import downloadExcel from '../../Assests/Images/downloadExcel.svg'
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 
 function DoctorVisibility() {
@@ -127,6 +128,23 @@ function DoctorVisibility() {
     saveAs(new Blob([excelBuffer], { type: 'application/octet-stream' }), fileName);
   };
 
+  const toggleFullScreen = () => {
+    const element = document.getElementById("maincontainer");
+    
+    if (!document.fullscreenElement) {
+      // Request fullscreen if it's not active
+      element.requestFullscreen().catch((err) => {
+        console.error(`Failed to enter fullscreen mode: ${err.message}`);
+      });
+    } else {
+      // Exit fullscreen if it's active
+      document.exitFullscreen().catch((err) => {
+        console.error(`Failed to exit fullscreen mode: ${err.message}`);
+      });
+    }
+  };
+  
+
   return (
     <div className="MainContentBox">
       <div className="TitleLine">
@@ -145,13 +163,14 @@ function DoctorVisibility() {
         </div>
 
       <div className="DownloadSection">
+        <div onClick={toggleFullScreen} style={{cursor:'pointer'}}><FullscreenIcon /></div>
         <div onClick={handleDownloadExcel}><img src={downloadExcel} alt="Download Excel" /></div>
         <div onClick={handleDownloadPdf} ><img src={downloadPdf} alt="Download Pdf" /></div>
       </div>
 
       </div>
 
-      <div className="ContentBox">
+      <div className="DoctContentBox" id="maincontainer">
         <div className="DateSearchBoxHeaderLine">
           <div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='searchBarBox'>
@@ -169,7 +188,7 @@ function DoctorVisibility() {
           </div>
         </div>
 
-        <div className="TableContainer">
+        <div className="doctTableContainer">
           <div className="loader-container" >
             <BeatLoader
               color={"#2190B9"}
