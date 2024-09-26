@@ -3,6 +3,7 @@ import './BedVisibility.css';
 import ICUbeds from './ICUbeds';
 import Wardbeds from './Wardbeds';
 import axios from 'axios';
+import { BeatLoader } from 'react-spinners';
 
 function BedVisibility() {
 
@@ -15,41 +16,72 @@ function BedVisibility() {
 
   const [bedDataicu, setBedDataicu] = useState({});
   const [bedDataward, setBedDataward] = useState({});
+  const [hospitalMasterList, setHospitalMasterList] = useState([]);
+  const [selectedHospitalId, setSelectedHospitalId] = useState("");
+  const [loadingIcu, setLoadingIcu] = useState(false);
+  const [loadingWard, setLoadingWard] = useState(false);
 
-  useEffect(() => {
-    const fetchICUBedData = async () => {                    // Fetch ICU bed data
-      try {
-        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=ICU`
-        //   ,{
-        //   headers: { Authorization: `Bearer ${tokenNo}` }
-        // }
-      );
-        const icuData = response.data.data;
-        setBedDataicu(icuData);
-        const { total, available } = calculateBedCounts(icuData);
-        setIcuBedData({ total, available });
-      } catch (error) {
-        console.error('Error fetching ICU bed data:', error);
+ // Fetch hospital list for the dropdown
+ useEffect(() => {
+  setLoadingIcu(true);
+  axios
+    .get(`${DASHBOARD_URL}/adhocapi/branch/master`)
+    .then((response) => {
+      const hospitals = response.data.data;
+      setHospitalMasterList(hospitals);
+      if (hospitals.length > 0) {
+        setSelectedHospitalId(hospitals[0].siteId);       // Automatically select the first hospital by default
       }
-    };
+      setLoadingIcu(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching hospital list:", error);
+      setLoadingIcu(false);
+    });
+}, [DASHBOARD_URL]);
 
-    const fetchWardBedData = async () => {                         // Fetch Ward bed data
-      try {
-        const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=`
-          // ,{ headers: { Authorization: `Bearer ${tokenNo}` }}
-      );
-        const wardData = response.data.data;
-        setBedDataward(wardData);
-        const { total, available } = calculateBedCounts(wardData);
-        setWardBedData({ total, available });
-      } catch (error) {
-        console.error('Error fetching Ward bed data:', error);
-      }
-    };
-
+ // Fetch ICU and Ward bed data whenever selectedHospitalId changes
+ useEffect(() => {
+  if (selectedHospitalId) {
     fetchICUBedData();
     fetchWardBedData();
-  }, []);
+  }
+}, [selectedHospitalId]);
+
+const fetchICUBedData = async () => {
+  setLoadingIcu(true);
+  try {
+    const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=ICU&siteId=${selectedHospitalId}`);
+    const icuData = response.data.data;
+    setBedDataicu(icuData);
+    const { total, available } = calculateBedCounts(icuData);
+    setIcuBedData({ total, available });
+  } catch (error) {
+    console.error('Error fetching ICU bed data:', error);
+  } finally {
+    setLoadingIcu(false);
+  }
+};
+
+const fetchWardBedData = async () => {
+  setLoadingWard(true);
+  try {
+    const response = await axios.get(`${DASHBOARD_URL}/adhocapi/dashboard/bedavailability?type=&siteId=${selectedHospitalId}`);
+    const wardData = response.data.data;
+    setBedDataward(wardData);
+    const { total, available } = calculateBedCounts(wardData);
+    setWardBedData({ total, available });
+  } catch (error) {
+    console.error('Error fetching Ward bed data:', error);
+  } finally {
+    setLoadingWard(false);
+  }
+};
+
+
+  const handleHospitalChange = (e) => {
+    setSelectedHospitalId(e.target.value);  // Set the selected hospitalId or "" for "All"
+  };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -68,8 +100,18 @@ function BedVisibility() {
   return (
     <div className='MainContentBox'>
       <div className='TitleLine'>
-        <div className='HeaderTitleName'>
-          Bed Visibility
+      <div className="TitleFilter">
+        <div className="HeaderTitleName">Doctor Visibility</div>
+        <div className="">
+           <select className="selectBarBox" onChange={handleHospitalChange}>
+                {/* <option value="">All Hospitals</option> */}
+                {hospitalMasterList.map((hospital) => (
+                  <option key={hospital.siteId} value={hospital.siteId}>
+                    {hospital.hospitalName}
+                  </option>
+                ))}
+              </select>       
+        </div>
         </div>
       </div>
       <div className='ContentBox'>
@@ -109,12 +151,14 @@ function BedVisibility() {
         {/* Content for doctor wise and department wise can be added here based on activeTab state */}
         {activeTab === "icu" && (
           <div className="tab-contents">
-            <ICUbeds bedData={bedDataicu}/>
+            {/* <ICUbeds bedData={bedDataicu}/> */}
+            {loadingIcu ? <div className='Loader'><BeatLoader color="#2190B9" /></div> : <ICUbeds bedData={bedDataicu} />}
           </div>
         )}
         {activeTab === "ward" && (
           <div className="tab-contents">
-            <Wardbeds bedData={bedDataward}/>
+            {/* <Wardbeds bedData={bedDataward}/> */}
+            {loadingWard ? <div className='Loader'><BeatLoader color="#2190B9" /></div> : <Wardbeds bedData={bedDataward} />}
           </div>
         )}
       </div>

@@ -108,3 +108,8 @@
     transition: margin-left 0.5s ease;
     cursor: pointer;
 }
+
+.no-data-message{
+    display: flex;
+    justify-content: center;
+}

@@ -5,8 +5,9 @@ import './OpdFootfall.css';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 // import showGraph from '../../Assests/Images/showGraph.svg'
+import noData from '../../Assests/Images/noData.svg'
 
-function OpdDoctorwise() {
+function OpdDoctorwise({selectedHospitalId}) {
   // const tokenNo = process.env.REACT_APP_TOKEN_NO; 
   const tokenNo = localStorage.getItem('tokenNo');
   const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL;
@@ -16,12 +17,14 @@ function OpdDoctorwise() {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   useEffect(() => {
+    setLoading(true); 
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/doctor?type=OP`
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/doctor?type=OP&siteId=${selectedHospitalId}`
       // ,{ headers: { Authorization: `Bearer ${tokenNo}`}}
     )
       .then(response => {
         const responseData = response.data.data;
+        if (responseData.length > 0) {
         const totalDates = Object.keys(responseData[0]).filter(key => key !== 'empId' && key !== 'empName');
         setDates(totalDates);
         const updatedData = responseData.map(doct => {
@@ -29,13 +32,17 @@ function OpdDoctorwise() {
           return { ...doct, 'Grand Total': grandTotal };
         });
         setData(updatedData);
+      } else {
+        setDates([]);
+        setData([]);
+      }
         setLoading(false); // Data fetching is complete
       })
       .catch(error => {
         console.error('Error fetching data:', error);
         setLoading(false); // Stop loader in case of error
       });
-  }, []);
+  },  [selectedHospitalId, DASHBOARD_URL]);
 
   const handleOpenDialog = (doctor) => {
     setSelectedDoctor(doctor);
@@ -94,6 +101,8 @@ function OpdDoctorwise() {
         </div>
       ) : (
         <div>
+        {data.length > 0 ? (
+        <div>
           <table className='MainTable'>
             <thead>
               <tr>
@@ -118,6 +127,12 @@ function OpdDoctorwise() {
             </DialogActions>
           </Dialog>
         </div>
+        ) : (
+          <div className="no-data-message">
+           <img src={noData} alt='No Data available for this Hospital'/>
+          </div>
+        )}
+      </div>
       )}
     </div>
   );

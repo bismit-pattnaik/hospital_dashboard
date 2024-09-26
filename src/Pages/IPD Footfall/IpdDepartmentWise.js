@@ -4,8 +4,9 @@ import './IpdFootfall.css';
 import { BeatLoader } from 'react-spinners';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import noData from '../../Assests/Images/noData.svg'
 
-function IpdDepartmentWise() {
+function IpdDepartmentWise({selectedHospitalId}) {
 
   // const tokenNo=process.env.REACT_APP_TOKEN_NO; 
   const tokenNo = localStorage.getItem('tokenNo');
@@ -16,12 +17,14 @@ function IpdDepartmentWise() {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/department?type=IP`
+      .get(`${DASHBOARD_URL}/adhocapi/dashboard/footfall/department?type=IP&siteId=${selectedHospitalId}`
         // ,{ headers: { Authorization: `Bearer ${tokenNo}`}}
     )
       .then(response => {
         const responseData = response.data.data;
+        if (responseData.length > 0) {
         const totalDates = Object.keys(responseData[0]).filter(key => key !== 'deptId' && key !== 'deptName');
         setDates(totalDates);
         const updatedData = responseData.map(dept => {
@@ -29,13 +32,17 @@ function IpdDepartmentWise() {
           return { ...dept, 'Grand Total': grandTotal };
         });
         setData(updatedData);
+      } else {
+        setDates([]);
+        setData([]);
+      }
         setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, []);
+  }, [selectedHospitalId, DASHBOARD_URL]);
 
   const handleOpenDialog = (department) => {
     setSelectedDepartment(department);
@@ -94,6 +101,8 @@ function IpdDepartmentWise() {
         </div>
       ) : (
         <div>
+          {data.length > 0 ? (
+        <div>
           <table className='MainTable'>
             <thead>
               <tr>
@@ -118,6 +127,12 @@ function IpdDepartmentWise() {
             </DialogActions>
           </Dialog>
         </div>
+         ) : (
+          <div className="no-data-message">
+           <img src={noData} alt='No Data available for this Hospital'/>
+          </div>
+        )}
+      </div>
       )}
     </div>
   );
